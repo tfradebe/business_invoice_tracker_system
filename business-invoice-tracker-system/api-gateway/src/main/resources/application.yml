@@ -10,12 +10,14 @@ spring:
         locator:
           enabled: true
       routes:
+
         - id: auth-service
           uri: lb://auth-service
           predicates:
             - Path=/api/auth/**
           filters:
             - StripPrefix=1
+
         - id: user-service
           uri: lb://user-service
           predicates:
@@ -23,5 +25,35 @@ spring:
           filters:
             - StripPrefix=1
             - name: JwtAuthentication
+
         - id: client-service
           uri: lb://client-service
+          predicates:
+            - Path=/api/clients/**
+          filters:
+            - StripPrefix=1
+            - name: JwtAuthentication
+
+        - id: invoice-service
+          uri: lb://invoice-service
+          predicates:
+            - Path=/api/invoices/**
+          filters:
+            - StripPrefix=1
+            - name: JwtAuthentication
+
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+          filters:
+            - StripPrefix=1
+            - name: JwtAuthentication
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_USER:admin}:${EUREKA_PASSWORD:admin123}@localhost:8761/eureka/
+
+jwt:
+  secret: invoice-tracker-secret-key-2023-spring-cloud-microservices
