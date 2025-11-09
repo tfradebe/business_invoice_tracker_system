@@ -15,7 +15,7 @@ public class UserService {
     }
 
     public UserProfileEntity getUserProfile(String userId, UserProfileDTO profileDTO) {
-
+        return null;
     }
 
 }
