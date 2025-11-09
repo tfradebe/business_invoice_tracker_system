@@ -1,4 +1,4 @@
-package za.co.tfradebe.user_service.db.entities;
+package za.co.tfradebe.user_service.model.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

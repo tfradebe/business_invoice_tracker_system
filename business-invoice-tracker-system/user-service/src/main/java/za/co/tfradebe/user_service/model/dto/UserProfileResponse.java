@@ -1,11 +1,11 @@
-package za.co.tfradebe.user_service.dto;
+package za.co.tfradebe.user_service.model.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class UserProfileDTO {
+public class UserProfileResponse {
     private Long id;
     private String companyName;
     private String address;
