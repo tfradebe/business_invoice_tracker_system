@@ -7,6 +7,7 @@ import za.co.tfradebe.user_service.v1.dto.CreateProfileRequest;
 import za.co.tfradebe.user_service.v1.dto.CreateProfileResponse;
 import za.co.tfradebe.user_service.service.UserService;
 import za.co.tfradebe.user_service.v1.dto.LoginRequest;
+import za.co.tfradebe.user_service.v1.dto.LoginResponse;
 
 @RestController
 @RequestMapping("/users")
@@ -34,8 +35,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> logging(@RequestBody @Valid LoginRequest loginRequest){
-
+    public ResponseEntity<LoginResponse> logging(@RequestBody @Valid LoginRequest loginRequest){
+        var successLogin = userService.login(loginRequest.getEmail(),loginRequest.getUserpassword());
+        var response = new LoginResponse();
+        response.setSuccess(successLogin);
+        return ResponseEntity.ok(response);
     }
 
 }

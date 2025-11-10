@@ -15,11 +15,19 @@ public class PasswordEncoderService {
         this.passwordEncoder = new BCryptPasswordEncoder(9,new SecureRandom());
     }
 
-    public char[] encode(char[] rawPassword){
-        return passwordEncoder.encode(new String(rawPassword)).toCharArray();
+    public String encode(char[] rawPassword){
+        return passwordEncoder.encode(new String(rawPassword));
+    }
+
+    public String encode(String rawPassword){
+        return passwordEncoder.encode(rawPassword);
     }
 
     public boolean matches(char[] rawPassword, String encodedPassword){
         return passwordEncoder.matches(new String(rawPassword), encodedPassword);
+    }
+
+    public boolean upgradeEncoding(String rawPassword){
+        return passwordEncoder.upgradeEncoding(rawPassword);
     }
 }

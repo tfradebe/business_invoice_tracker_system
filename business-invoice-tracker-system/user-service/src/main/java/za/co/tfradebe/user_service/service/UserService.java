@@ -22,8 +22,9 @@ public class UserService {
     }
 
     public CreateProfileResponse createProfile(CreateProfileRequest profileDTO) {
-        profileDTO.setUserpassword(passwordEncoderService.encode(profileDTO.getUserpassword()));
+        var encodedPassword = passwordEncoderService.encode(profileDTO.getUserpassword());
         var userProfileEntity = userProfileMapper.map(profileDTO);
+        userProfileEntity.setUserpassword(encodedPassword);
         var userEntity = userRepository.save(userProfileEntity);
         return userProfileMapper.map(userEntity);
     }
@@ -38,6 +39,21 @@ public class UserService {
         userProfileMapper.map(profileDTO, userEntity);
         userRepository.save(userEntity);
         return userProfileMapper.map(userEntity);
+    }
+
+    public boolean login(String email, char[] password){
+        var userEntity = userRepository.findByEmail(email);
+        if(userEntity == null){
+            return false;
+        }
+        var matches = passwordEncoderService.matches(password,userEntity.getUserpassword());
+        if(matches){
+            var upgradeEncoding = passwordEncoderService.upgradeEncoding(userEntity.getUserpassword());
+            if(upgradeEncoding){
+                userEntity.setUserpassword(passwordEncoderService.encode(password));
+            }
+        }
+        return matches;
     }
 
 }
