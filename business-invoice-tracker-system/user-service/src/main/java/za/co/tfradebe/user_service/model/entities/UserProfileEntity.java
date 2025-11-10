@@ -13,10 +13,12 @@ public class UserProfileEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String companyName;
-    private String address;
-    private String phone;
-    private String logoUrl;
+    @Column(name="user_name")
+    private String username;
+
+    @Column(name="user_password")
+    private String userpassword;
+    private String email;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
