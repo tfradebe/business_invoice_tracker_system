@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse} from '../../model/models';
+import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse} from '../model/models';
 import {Observable} from 'rxjs';
 
 @Injectable({

@@ -49,8 +49,18 @@
   color: white;
 }
 
+.password-message {
+  color: red;
+}
+
 .btn-warning {
   background-color: #ffc107;
   color: black;
 }
 
+.result {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}

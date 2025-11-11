@@ -25,7 +25,7 @@ public class UserController {
         return ResponseEntity.ok(userProfileDTO);
     }
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("/profile/{userId}")
     public ResponseEntity<CreateProfileResponse> getProfile(@PathVariable Long userId) {
         var userDto = userService.getProfileById(userId);
         if(userDto == null){

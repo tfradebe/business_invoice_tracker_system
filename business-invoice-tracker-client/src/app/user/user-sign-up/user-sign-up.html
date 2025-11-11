@@ -11,19 +11,26 @@
     <h2>Create User Profile</h2>
     <div class="form-group">
       <label>Name:</label>
-      <input type="text" [(ngModel)]="profileData.name" class="form-control">
+      <input type="text" [(ngModel)]="profileData.username" class="form-control">
     </div>
     <div class="form-group">
       <label>Email:</label>
       <input type="email" [(ngModel)]="profileData.email" class="form-control">
     </div>
-    <div class="form-group">
-      <label>Password:</label>
-      <input type="password" [(ngModel)]="profileData.userpassword" class="form-control">
-    </div>
-    <div class="form-group">
-      <label>Password:</label>
-      <input type="password" [(ngModel)]="profileData.userpassword" class="form-control">
+    <div class="section">
+      @if (passwordMessage) {
+        <div class="password-message">
+          {{ passwordMessage }}
+        </div>
+      }
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" [(ngModel)]="profileData.userpassword" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Repeat password:</label>
+        <input type="password" [(ngModel)]="password2" class="form-control">
+      </div>
     </div>
     <button (click)="onCreateProfile()" class="btn btn-primary">Create Profile</button>
 
@@ -31,7 +38,7 @@
       <div class="result">
         <h3>Profile Created Successfully!</h3>
         <p>ID: {{ createdProfile.id }}</p>
-        <p>Name: {{ createdProfile.name }}</p>
+        <p>Name: {{ createdProfile.username }}</p>
         <p>Email: {{ createdProfile.email }}</p>
       </div>
     }

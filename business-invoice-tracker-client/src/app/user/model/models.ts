@@ -1,12 +1,12 @@
 export interface CreateProfileRequest{
-  name: string;
+  username: string;
   email: string;
   userpassword: string;
 }
 
 export interface CreateProfileResponse{
   id: number;
-  name: string;
+  username: string;
   email: string;
 }
 

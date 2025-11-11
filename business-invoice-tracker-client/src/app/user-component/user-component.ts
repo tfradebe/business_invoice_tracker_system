@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse} from '../model/models';
+import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse} from '../user/model/models';
 import {UserService} from '../user/service/user.service';
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -16,7 +16,7 @@ export class UserComponent {
   title = "User Component";
 
   profileData: CreateProfileRequest = {
-    name: '',
+    username: '',
     email: '',
     userpassword: ''
   };
@@ -78,7 +78,7 @@ export class UserComponent {
   }
 
   resetForms(): void {
-    this.profileData = {name: '', email: '', userpassword: ''};
+    this.profileData = {username: '', email: '', userpassword: ''};
     this.loginData = {email: '', userpassword: ''};
     this.userIdToFetch = null;
     this.createdProfile = null;
