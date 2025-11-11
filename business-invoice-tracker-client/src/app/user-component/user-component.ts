@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse} from '../model/models';
 import {UserService} from '../service/user.service';
+import {NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-user-component',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './user-component.html',
   styleUrl: './user-component.css',
 })
@@ -31,7 +35,57 @@ export class UserComponent {
 
   constructor(private userService: UserService){}
 
+  onCreateProfile(): void {
+    this.errorMessage = '';
+    this.userService.createProfile(this.profileData).subscribe({next: (response) => {
+      this.createdProfile = response;
+      console.log('Profile created: ', response);
+      },
+      error: (error) =>{
+      this.errorMessage = 'Error creating profile: '+error.message;
+      console.error('Error creating profile: ', error);
+      }
+    });
+  }
 
+  onLogin(): void {
+    this.errorMessage = '';
+    this.userService.login(this.loginData).subscribe({
+      next: (response) => {
+        this.loginResult = response;
+        console.error('Login result: ', response);
+      },
+      error: (error) => {
+        this.errorMessage = 'Login failed: '+ error.message;
+        console.error('Login error: ', error);
+      }
+    });
+  }
 
+  onGetProfile(): void {
+    if(this.userIdToFetch !== null){
+      this.errorMessage = '';
+      this.userService.getProfile(this.userIdToFetch).subscribe({
+        next: (response) => {
+          this.fetchedProfile = response;
+          console.log('Profile fetched: ', response);
+        },
+        error: (error) => {
+          this.errorMessage = 'Error fetching profile: '+ error.message;
+          console.error('Error fetching profile: ', error);
+        }
+      });
+    }
+  }
+
+  resetForms(): void {
+    this.profileData = {name: '', email: '', userpassword: ''};
+    this.loginData = {email: '', userpassword: ''};
+    this.userIdToFetch = null;
+    this.createdProfile = null;
+    this.fetchedProfile = null;
+    this.loginResult = null;
+    this.errorMessage = '';
+  }
 
 }
