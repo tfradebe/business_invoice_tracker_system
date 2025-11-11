@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse} from '../model/models';
-import {UserService} from '../service/user.service';
+import {UserService} from '../user/service/user.service';
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
@@ -27,7 +27,6 @@ export class UserComponent {
   };
 
   userIdToFetch: number | null = null;
-
   createdProfile: CreateProfileResponse | null = null;
   fetchedProfile: CreateProfileResponse | null = null;
   loginResult: LoginResponse | null = null;
