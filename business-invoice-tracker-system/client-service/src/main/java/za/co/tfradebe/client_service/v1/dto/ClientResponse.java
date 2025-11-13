@@ -7,7 +7,7 @@ import za.co.tfradebe.client_service.v1.error.ErrorDetail;
 import java.util.List;
 
 @Data
-public class ClientCreateResponse {
+public class ClientResponse {
     private String status;
     private String code;
     private List<ErrorDetail> error;
