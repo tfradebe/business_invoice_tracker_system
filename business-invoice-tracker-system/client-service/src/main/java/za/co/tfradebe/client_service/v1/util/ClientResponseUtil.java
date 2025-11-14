@@ -1,5 +1,6 @@
-package za.co.tfradebe.client_service.v1.dto;
+package za.co.tfradebe.client_service.v1.util;
 
+import za.co.tfradebe.client_service.v1.dto.ClientResponse;
 import za.co.tfradebe.client_service.v1.dto.model.ClientDto;
 import za.co.tfradebe.client_service.v1.error.ErrorDetail;
 

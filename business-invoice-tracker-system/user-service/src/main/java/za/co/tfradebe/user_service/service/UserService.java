@@ -1,10 +1,10 @@
 package za.co.tfradebe.user_service.service;
 
 import org.springframework.stereotype.Service;
-import za.co.tfradebe.user_service.exception.ProfileNotFoundException;
+import za.co.tfradebe.user_service.exception.NotFoundException;
 import za.co.tfradebe.user_service.v1.dto.CreateProfileRequest;
-import za.co.tfradebe.user_service.v1.dto.CreateProfileResponse;
 import za.co.tfradebe.user_service.v1.dto.UpdateProfileRequest;
+import za.co.tfradebe.user_service.v1.dto.model.UserDto;
 import za.co.tfradebe.user_service.v1.mapper.UserProfileMapper;
 import za.co.tfradebe.user_service.repository.UserProfileRepository;
 
@@ -21,21 +21,21 @@ public class UserService {
         this.passwordEncoderService = passwordEncoderService;
     }
 
-    public CreateProfileResponse createProfile(CreateProfileRequest profileDTO) {
-        var encodedPassword = passwordEncoderService.encode(profileDTO.getUserpassword());
+    public UserDto createProfile(CreateProfileRequest profileDTO) {
+        var encodedPassword = passwordEncoderService.encode(profileDTO.getUserPassword());
         var userProfileEntity = userProfileMapper.map(profileDTO);
-        userProfileEntity.setUserpassword(encodedPassword);
+        userProfileEntity.setUserPassword(encodedPassword);
         var userEntity = userRepository.save(userProfileEntity);
         return userProfileMapper.map(userEntity);
     }
 
-    public CreateProfileResponse getProfileById(Long id){
-        var userEntity = userRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException("User Profile Not Found"));
+    public UserDto getProfileById(Long id){
+        var userEntity = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User Profile Not Found"));
         return userProfileMapper.map(userEntity);
     }
 
-    public CreateProfileResponse updateProfile(Long id, UpdateProfileRequest profileDTO) {
-        var userEntity = userRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException("User Profile Not Found"));
+    public UserDto updateProfile(Long id, UpdateProfileRequest profileDTO) {
+        var userEntity = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User Profile Not Found"));
         userProfileMapper.map(profileDTO, userEntity);
         userRepository.save(userEntity);
         return userProfileMapper.map(userEntity);
@@ -46,11 +46,11 @@ public class UserService {
         if(userEntity == null){
             return false;
         }
-        var matches = passwordEncoderService.matches(password,userEntity.getUserpassword());
+        var matches = passwordEncoderService.matches(password,userEntity.getUserPassword());
         if(matches){
-            var upgradeEncoding = passwordEncoderService.upgradeEncoding(userEntity.getUserpassword());
+            var upgradeEncoding = passwordEncoderService.upgradeEncoding(userEntity.getUserPassword());
             if(upgradeEncoding){
-                userEntity.setUserpassword(passwordEncoderService.encode(password));
+                userEntity.setUserPassword(passwordEncoderService.encode(password));
             }
         }
         return matches;

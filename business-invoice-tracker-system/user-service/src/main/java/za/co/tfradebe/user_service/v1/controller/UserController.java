@@ -1,16 +1,19 @@
 package za.co.tfradebe.user_service.v1.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import za.co.tfradebe.user_service.v1.dto.CreateProfileRequest;
-import za.co.tfradebe.user_service.v1.dto.CreateProfileResponse;
+import za.co.tfradebe.user_service.v1.dto.*;
 import za.co.tfradebe.user_service.service.UserService;
-import za.co.tfradebe.user_service.v1.dto.LoginRequest;
-import za.co.tfradebe.user_service.v1.dto.LoginResponse;
+
+import java.util.List;
+
+import static za.co.tfradebe.user_service.v1.util.UserResponseUtil.createSuccessResponse;
 
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -20,26 +23,43 @@ public class UserController {
     }
 
     @PostMapping("/profile")
-    public ResponseEntity<CreateProfileResponse> createProfile(@Valid @RequestBody CreateProfileRequest profileDTO){
-        var userProfileDTO = userService.createProfile(profileDTO);
-        return ResponseEntity.ok(userProfileDTO);
+    public ResponseEntity<UserResponse> createProfile(@Valid @RequestBody CreateProfileRequest profileDTO){
+        try {
+            var userDto = userService.createProfile(profileDTO);
+            var response = createSuccessResponse(List.of(userDto));
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<CreateProfileResponse> getProfile(@PathVariable Long userId) {
-        var userDto = userService.getProfileById(userId);
-        if(userDto == null){
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<UserResponse> getProfile(@PathVariable Long userId) {
+        try {
+            var userDto = userService.getProfileById(userId);
+            if (userDto == null) {
+                return ResponseEntity.notFound().build();
+            }
+            var response = createSuccessResponse(List.of(userDto));
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            throw new RuntimeException(e);
         }
-        return ResponseEntity.ok(userDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> logging(@RequestBody @Valid LoginRequest loginRequest){
-        var successLogin = userService.login(loginRequest.getEmail(),loginRequest.getUserpassword());
-        var response = new LoginResponse();
-        response.setSuccess(successLogin);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<UserResponse> logging(@RequestBody @Valid LoginRequest loginRequest){
+        try {
+            var successLogin = userService.login(loginRequest.getEmail(), loginRequest.getUserpassword());
+            var response = createSuccessResponse(List.of());
+            response.setLogin(successLogin);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            throw new RuntimeException(e);
+        }
     }
 
 }

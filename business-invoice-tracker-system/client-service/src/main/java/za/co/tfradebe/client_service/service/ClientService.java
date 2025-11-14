@@ -32,36 +32,43 @@ public class ClientService {
         var clientEntityOptional = clientRepository.findById(id);
         if (clientEntityOptional.isPresent()) {
             ClientEntity entity = clientEntityOptional.get();
-            clientMapper.map(entity,request);
+            clientMapper.map(entity, request);
             entity = clientRepository.save(entity);
             return clientMapper.map(entity);
         }
         throw new NotFoundException("Client not found");
     }
 
-    public List<ClientDto> getClients(){
+    public List<ClientDto> getClients() {
         var entities = clientRepository.findAll();
         return clientMapper.map(entities);
     }
 
-    public ClientDto getClientById(Long id){
+    public ClientDto getClientById(Long id) {
         var entity = clientRepository.findById(id);
-        if(entity.isPresent()){
+        if (entity.isPresent()) {
             return clientMapper.map(entity.get());
         }
         throw new NotFoundException("Client not found");
     }
 
-    public ClientDto deleteClientById(Long id){
+    public ClientDto deleteClientById(Long id) {
         var entity = clientRepository.findById(id);
-        if(entity.isPresent()){
-            clientRepository.deleteById(id);
+        if (entity.isPresent()) {
+            var clientEntity = entity.get();
+            var deletedClient = clientMapper.map(clientEntity);
+            clientRepository.delete(clientEntity);
+            return deletedClient;
         }
         throw new NotFoundException("Client not found");
     }
 
-    public ClientDto getClientByEmail(String email){
-        var entity = clientRepository.findByEmail(email);
-        return clientMapper.map(clientRepository.findByEmail(email));
+    public ClientDto getClientByEmail(String email) {
+        var entityOptional = clientRepository.findByEmail(email);
+        if (entityOptional.isPresent()) {
+            var entity = entityOptional.get();
+            return clientMapper.map(entity);
+        }
+        throw new NotFoundException("Client not found");
     }
 }

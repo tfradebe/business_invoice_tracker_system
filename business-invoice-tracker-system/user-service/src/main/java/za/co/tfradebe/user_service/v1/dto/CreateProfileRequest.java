@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class CreateProfileRequest {
     private String username;
-    private char[] userpassword;
+    private char[] userPassword;
     private String email;
 }

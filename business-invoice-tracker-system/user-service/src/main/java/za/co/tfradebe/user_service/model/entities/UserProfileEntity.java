@@ -17,7 +17,7 @@ public class UserProfileEntity {
     private String username;
 
     @Column(name="user_password")
-    private String userpassword;
+    private String userPassword;
     private String email;
 
     private LocalDateTime createdAt;

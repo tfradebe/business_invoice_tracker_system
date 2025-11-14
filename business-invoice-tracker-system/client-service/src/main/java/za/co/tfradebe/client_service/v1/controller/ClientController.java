@@ -9,7 +9,7 @@ import za.co.tfradebe.client_service.v1.dto.*;
 
 import java.util.List;
 
-import static za.co.tfradebe.client_service.v1.dto.ClientResponseUtil.createSuccessResponse;
+import static za.co.tfradebe.client_service.v1.util.ClientResponseUtil.createSuccessResponse;
 
 @RestController
 @RequestMapping("/client")
@@ -29,7 +29,7 @@ public class ClientController {
             var response = createSuccessResponse(List.of(client));
             return ResponseEntity.ok(response);
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
             throw e;
         }
     }
@@ -41,7 +41,7 @@ public class ClientController {
             var response = createSuccessResponse(clients);
             return ResponseEntity.ok(response);
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
             throw e;
         }
     }
@@ -53,7 +53,7 @@ public class ClientController {
             var response = createSuccessResponse(List.of(client));
             return ResponseEntity.ok(response);
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
             throw e;
         }
     }
@@ -65,7 +65,7 @@ public class ClientController {
             var response = createSuccessResponse(List.of(client));
             return ResponseEntity.ok(response);
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
             throw e;
         }
     }
@@ -77,13 +77,20 @@ public class ClientController {
             var response = createSuccessResponse(List.of(client));
             return ResponseEntity.ok(response);
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
             throw e;
         }
     }
 
     @DeleteMapping("/delete/{clientId}")
-    public ResponseEntity<ClientDeleteResponse> deleteClient(@PathVariable Long clientId){
-        return ResponseEntity.ok(new ClientDeleteResponse());
+    public ResponseEntity<ClientResponse> deleteClient(@PathVariable Long clientId){
+        try {
+            var client = clientService.deleteClientById(clientId);
+            var response  = createSuccessResponse(List.of(client));
+            return ResponseEntity.ok(response);
+        } catch (Exception e){
+            log.error(e.getMessage(), e);
+            throw e;
+        }
     }
 }

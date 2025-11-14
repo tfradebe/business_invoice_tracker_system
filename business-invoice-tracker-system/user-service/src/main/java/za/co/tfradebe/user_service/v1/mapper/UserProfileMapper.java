@@ -8,19 +8,20 @@ import za.co.tfradebe.user_service.v1.dto.CreateProfileRequest;
 import za.co.tfradebe.user_service.v1.dto.CreateProfileResponse;
 import za.co.tfradebe.user_service.model.entities.UserProfileEntity;
 import za.co.tfradebe.user_service.v1.dto.UpdateProfileRequest;
+import za.co.tfradebe.user_service.v1.dto.model.UserDto;
 
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
-    CreateProfileResponse map(UserProfileEntity userProfileEntity);
-    @Mapping(target = "userpassword", source = "userpassword", qualifiedByName = "charsToString")
+    UserDto map(UserProfileEntity userProfileEntity);
+    @Mapping(target = "userPassword", source = "userPassword", qualifiedByName = "charsToString")
     UserProfileEntity map(CreateProfileRequest createProfileRequest);
     void map(UpdateProfileRequest createProfileRequest, @MappingTarget UserProfileEntity userProfileEntity);
 
     @Named("charsToString")
-    default String mapCharsToString(char[] charactors) {
-        if(charactors == null){
+    default String mapCharsToString(char[] characters) {
+        if(characters == null){
             return null;
         }
-        return charactors.toString();
+        return characters.toString();
     }
 }
