@@ -37,9 +37,9 @@
     @if (createdProfile) {
       <div class="result">
         <h3>Profile Created Successfully!</h3>
-        <p>ID: {{ createdProfile.id }}</p>
-        <p>Name: {{ createdProfile.username }}</p>
-        <p>Email: {{ createdProfile.email }}</p>
+        <p>ID: {{ createdProfile.data.at(0)?.id }}</p>
+        <p>Name: {{ createdProfile.data.at(0)?.username }}</p>
+        <p>Email: {{ createdProfile.data.at(0)?.email }}</p>
       </div>
     }
   </div>

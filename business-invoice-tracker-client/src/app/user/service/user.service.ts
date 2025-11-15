@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse} from '../model/models';
+import {CreateProfileRequest, CreateProfileResponse, LoginRequest, LoginResponse, UserResponse} from '../model/models';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -11,16 +11,16 @@ export class UserService{
 
   constructor(private http: HttpClient){}
 
-  createProfile(profileData: CreateProfileRequest): Observable<CreateProfileResponse> {
-    return this.http.post<CreateProfileResponse>(`${this.baseUrl}/profile`, profileData);
+  createProfile(profileData: CreateProfileRequest): Observable<UserResponse> {
+    return this.http.post<UserResponse>(`${this.baseUrl}/profile`, profileData);
   }
 
-  getProfile(userId: number): Observable<CreateProfileResponse> {
-    return this.http.get<CreateProfileResponse>(`${this.baseUrl}/profile/${userId}`);
+  getProfile(userId: number): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.baseUrl}/profile/${userId}`);
   }
 
-  login(loginData: LoginRequest): Observable<LoginResponse>{
-    return this.http.post<LoginResponse>(`${this.baseUrl}/login`, loginData);
+  login(loginData: LoginRequest): Observable<UserResponse>{
+    return this.http.post<UserResponse>(`${this.baseUrl}/login`, loginData);
   }
 
 }

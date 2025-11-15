@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UserService} from '../service/user.service';
-import {CreateProfileResponse} from '../model/models';
+import { UserResponse} from '../model/models';
 
 @Component({
   selector: 'app-user-search',
@@ -17,7 +17,7 @@ export class UserSearch {
 
   errorMessage: string = '';
   userIdToFetch: number | null = null;
-  fetchedProfile: CreateProfileResponse | null = null;
+  fetchedProfile: UserResponse | null = null;
 
   constructor(private userService: UserService){}
 

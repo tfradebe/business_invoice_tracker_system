@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CreateProfileRequest, CreateProfileResponse} from '../model/models';
+import {CreateProfileRequest, UserResponse} from '../model/models';
 import {UserService} from '../service/user.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class UserSignUp {
 
   password2 = '';
 
-  createdProfile: CreateProfileResponse | null = null;
+  createdProfile: UserResponse | null = null;
   errorMessage: string = '';
   passwordMessage: string = '';
 

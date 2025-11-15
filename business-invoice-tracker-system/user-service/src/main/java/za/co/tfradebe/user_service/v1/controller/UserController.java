@@ -30,7 +30,7 @@ public class UserController {
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to create profile");
         }
     }
 

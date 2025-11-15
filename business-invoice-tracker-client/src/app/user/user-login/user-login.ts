@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {LoginRequest, LoginResponse} from '../model/models';
+import {LoginRequest, UserResponse} from '../model/models';
 import {UserService} from '../service/user.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class UserLogin {
     userpassword: ''
   };
 
-  loginResult: LoginResponse | null = null;
+  loginResult: UserResponse | null = null;
 
   constructor(private userService: UserService){}
 

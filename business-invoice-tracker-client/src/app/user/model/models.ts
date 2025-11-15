@@ -4,17 +4,28 @@ export interface CreateProfileRequest{
   userpassword: string;
 }
 
-export interface CreateProfileResponse{
-  id: number;
-  username: string;
-  email: string;
-}
-
 export interface LoginRequest{
   email: string;
   userpassword: string;
 }
 
-export interface LoginResponse{
-  success: boolean;
+export interface ErrorDetails{
+  code: string;
+  message: string;
+  details: {[key: string]: string};
+}
+
+export interface UserDto {
+  id: number;
+  username: string;
+  userPassword: string;
+  email: string;
+}
+
+export interface UserResponse {
+  status: string;
+  code: string;
+  login: boolean;
+  error: ErrorDetails[];
+  data: UserDto[];
 }

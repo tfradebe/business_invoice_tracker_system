@@ -17,9 +17,9 @@
     @if (fetchedProfile) {
       <div class="result">
         <h3>User Profile:</h3>
-        <p>ID: {{ fetchedProfile.id }}</p>
-        <p>Name: {{ fetchedProfile.username }}</p>
-        <p>Email: {{ fetchedProfile.email }}</p>
+        <p>ID: {{ fetchedProfile.data.at(0)?.id }}</p>
+        <p>Name: {{ fetchedProfile.data.at(0)?.username }}</p>
+        <p>Email: {{ fetchedProfile.data.at(0)?.email }}</p>
       </div>
     }
   </div>
