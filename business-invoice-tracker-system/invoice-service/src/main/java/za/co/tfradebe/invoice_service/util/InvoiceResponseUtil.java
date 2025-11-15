@@ -10,9 +10,13 @@ public class InvoiceResponseUtil {
 
     private InvoiceResponseUtil(){}
 
-    public static InvoiceResponse createSuccessResponse(List<InvoiceDto> users){
+    public static InvoiceResponse createSuccessResponse(InvoiceDto invoiceDto) {
+        return createSuccessResponse(List.of(invoiceDto));
+    }
+
+    public static InvoiceResponse createSuccessResponse(List<InvoiceDto> invoiceDtoList) {
         var response = new InvoiceResponse();
-        response.setData(users);
+        response.setData(invoiceDtoList);
         response.setStatus("SUCCESS");
         return response;
     }
