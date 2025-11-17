@@ -18,7 +18,7 @@ export class UserSignUp {
   profileData: CreateProfileRequest = {
     username: '',
     email: '',
-    userpassword: ''
+    userPassword: ''
   };
 
   password2 = '';
@@ -49,11 +49,11 @@ export class UserSignUp {
   }
 
   checkPassword(): boolean {
-    return this.password2 == this.profileData.userpassword;
+    return this.password2 == this.profileData.userPassword;
   }
 
   resetForms(): void {
-    this.profileData = {username: '', email: '', userpassword: ''};
+    this.profileData = {username: '', email: '', userPassword: ''};
     this.createdProfile = null;
     this.errorMessage = '';
   }

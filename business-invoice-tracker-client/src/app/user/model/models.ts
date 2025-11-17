@@ -1,12 +1,12 @@
 export interface CreateProfileRequest{
   username: string;
   email: string;
-  userpassword: string;
+  userPassword: string;
 }
 
 export interface LoginRequest{
   email: string;
-  userpassword: string;
+  userPassword: string;
 }
 
 export interface ErrorDetails{

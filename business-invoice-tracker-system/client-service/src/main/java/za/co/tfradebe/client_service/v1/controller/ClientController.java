@@ -58,7 +58,7 @@ public class ClientController {
         }
     }
 
-    @GetMapping("/update/{clientId}")
+    @GetMapping("/{clientId}")
     public ResponseEntity<ClientResponse> getClientById(@PathVariable Long clientId){
         try {
             var client = clientService.getClientById(clientId);

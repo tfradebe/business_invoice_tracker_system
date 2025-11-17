@@ -19,7 +19,7 @@ export class UserLogin {
 
   loginData: LoginRequest = {
     email: '',
-    userpassword: ''
+    userPassword: ''
   };
 
   loginResult: UserResponse | null = null;

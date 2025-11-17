@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import za.co.tfradebe.user_service.exception.NotFoundException;
 import za.co.tfradebe.user_service.v1.dto.*;
 import za.co.tfradebe.user_service.service.UserService;
 
@@ -30,7 +31,7 @@ public class UserController {
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            throw new RuntimeException("Failed to create profile");
+            throw new NotFoundException("Failed to create profile");
         }
     }
 
@@ -45,6 +46,21 @@ public class UserController {
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error(e.getMessage(),e);
+            throw new NotFoundException("Failed to get profile");
+        }
+    }
+
+    @GetMapping("/search/profile/{email}")
+    public ResponseEntity<UserResponse> getProfile(@PathVariable String email) {
+        try {
+            var userDto = userService.getProfileByEmail(email);
+            if (userDto == null) {
+                return ResponseEntity.notFound().build();
+            }
+            var response = createSuccessResponse(List.of(userDto));
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
             throw new RuntimeException(e);
         }
     }
@@ -52,7 +68,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<UserResponse> logging(@RequestBody @Valid LoginRequest loginRequest){
         try {
-            var successLogin = userService.login(loginRequest.getEmail(), loginRequest.getUserpassword());
+            var successLogin = userService.login(loginRequest.getEmail(), loginRequest.getUserPassword());
             var response = createSuccessResponse(List.of());
             response.setLogin(successLogin);
             return ResponseEntity.ok(response);

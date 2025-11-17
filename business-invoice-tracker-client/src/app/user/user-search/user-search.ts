@@ -16,15 +16,15 @@ export class UserSearch {
   title = "User User Profile";
 
   errorMessage: string = '';
-  userIdToFetch: number | null = null;
+  userEmailToFetch: string | null = null;
   fetchedProfile: UserResponse | null = null;
 
   constructor(private userService: UserService){}
 
   onGetProfile(): void {
-    if(this.userIdToFetch !== null){
+    if(this.userEmailToFetch !== null){
       this.errorMessage = '';
-      this.userService.getProfile(this.userIdToFetch).subscribe({
+      this.userService.getProfile(this.userEmailToFetch).subscribe({
         next: (response) => {
           this.fetchedProfile = response;
           console.log('Profile fetched: ', response);

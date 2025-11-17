@@ -34,6 +34,11 @@ public class UserService {
         return userProfileMapper.map(userEntity);
     }
 
+    public UserDto getProfileByEmail(String email){
+        var userEntity = userRepository.findByEmail(email);
+        return userProfileMapper.map(userEntity);
+    }
+
     public UserDto updateProfile(Long id, UpdateProfileRequest profileDTO) {
         var userEntity = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User Profile Not Found"));
         userProfileMapper.map(profileDTO, userEntity);
